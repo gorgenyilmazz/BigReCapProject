@@ -1,41 +1,66 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    class EntityCarDal : ICarDal
+   public class EntityCarDal : ICarDal
     {
         public void Add(Car car)
         {
-            throw new NotImplementedException();
+            using (ReCapContext context = new ReCapContext())
+            {
+                var carToAdd = context.Entry(car);
+
+                carToAdd.State = EntityState.Added;
+                context.SaveChanges();
+
+            }
         }
 
         public void Delete(Car car)
         {
-            throw new NotImplementedException();
-        }
+            using (ReCapContext context = new ReCapContext())
+            {
+                var carToDelete = context.Entry(car);
 
-        public List<Car> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+                carToDelete.State = EntityState.Deleted;
+                context.SaveChanges();
 
-        public Car GetById(int id)
-        {
-            throw new NotImplementedException();
+            }
         }
 
         public void Update(Car car)
         {
-            throw new NotImplementedException();
+            using (ReCapContext context = new ReCapContext())
+            {
+                var carToUpdate = context.Entry(car);
+
+                carToUpdate.State = EntityState.Modified;
+                context.SaveChanges();
+
+            }
         }
 
-        List<Car> ICarDal.GetById(int id)
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            using (ReCapContext context = new ReCapContext()) 
+            {
+                return filter == null ? context.Set<Car>().ToList()
+                    : context.Set<Car>().Where(filter).ToList();
+                    
+            }
+                
         }
+
+       
+
+       
     }
 }
