@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -16,53 +18,53 @@ namespace Business.Concrete
             _cars = carDal;     
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.Description.Length >= 2 && car.DailyPrice > 0)
             {
                 _cars.Add(car);
-                Console.WriteLine(car.Description + "Eklendi");
+                return new SuccessResult(true, Messages.EntityAdded);
             }
             else
-                Console.WriteLine("Arabanin ismi minimum 2 karakter ve gunluk fiyati 0 dan buyuk olmalidir.");
+                return new ErrorResult(false, "Arabanin ismi minimum 2 karakter ve gunluk fiyati 0 dan buyuk olmalidir.");
 
                
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _cars.GetAll();
+            return new SuccessDataResult<List<Car>>(_cars.GetAll(), true);
         }
 
-        public List<Car> GetCarsByBranddId(int id)
+        public IDataResult<List<Car>> GetCarsByBranddId(int id)
         {
-            return _cars.GetAll(c => c.BrandId == id);
+            return new SuccessDataResult<List<Car>>(_cars.GetAll(c => c.BrandId == id), true);
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return _cars.GetAll(c => c.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_cars.GetAll(c => c.ColorId == id), true);
         }
-        public List<CarDetailsDto> GetCarDetails()
+        public IDataResult<List<CarDetailsDto>> GetCarDetails()
         {
-            return _cars.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailsDto>>(_cars.GetCarDetails(), true);
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             _cars.Update(car);
-            Console.WriteLine(car.Description + "Guncellenmis hali: " + car.Description);
+            return new SuccessResult(true, Messages.EntityUpdated);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _cars.Delete(car);
-            Console.WriteLine(car.Description + "Silindi");
+            return new SuccessResult(true, Messages.EntityDeleted);
         }
 
-        public List<Car> GetById(int id)
+        public IDataResult<List<Car>> GetById(int id)
         {
-            return _cars.GetAll(c=>c.Id == id);
+            return new SuccessDataResult<List<Car>>(_cars.GetAll(c=>c.Id == id), true);
         }
     }
 }

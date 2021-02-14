@@ -98,8 +98,9 @@ namespace UIConsole
         private static void CarDetailsTest()
         {
             CarManager carManager = new CarManager(new EntityCarDal());
+            var result = carManager.GetCarDetails();
 
-            foreach (var car in carManager.GetCarDetails())
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.CarName + "//" + car.BrandName + "//" + car.ColorName + "//" + car.DailyPrice);
             }
@@ -108,8 +109,9 @@ namespace UIConsole
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EntityCarDal());
+            var result = carManager.GetAll();
 
-            foreach (var car in carManager.GetAll())
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.Description);
             }
@@ -117,8 +119,9 @@ namespace UIConsole
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EntityBrandDal());
+            var result = brandManager.GetAll();
 
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.BrandName);
             }
@@ -127,8 +130,8 @@ namespace UIConsole
         private static void ColorTest() 
         {
             ColorManager colorManager = new ColorManager(new EntityColorDal());
-
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.ColorName);
             }

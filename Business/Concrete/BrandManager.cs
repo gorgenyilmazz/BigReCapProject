@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,32 +16,33 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
-            Console.WriteLine(brand.BrandName + "Eklendi");
+            return new SuccessResult(true, Messages.EntityAdded);        
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            Console.WriteLine(brand.BrandName + "Silindi");
+            return new SuccessResult(true, Messages.EntityDeleted);
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), true, Messages.EntitiesListed);
         }
 
-        public List<Brand> GetBrandsByBranddId(int id)
+        public IDataResult<List<Brand>> GetBrandsByBranddId(int id)
         {
-            return _brandDal.GetAll(b => b.BrandId == id);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == id), true, Messages.EntitiesListed);
         }
 
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            Console.WriteLine(brand.BrandName + "'nin Guncellenmis hali;" + brand.BrandName);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == brand.BrandId), true, Messages.EntityUpdated);
+            
         }
     }
 }
