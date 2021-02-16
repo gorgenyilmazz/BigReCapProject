@@ -2,6 +2,7 @@
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
+using System.Text;
 
 namespace UIConsole
 {
@@ -14,14 +15,41 @@ namespace UIConsole
 
             //BrandCRUDTest();
             //CarCRUDTest();
-            ColorCRUDTest();
+            //ColorCRUDTest();
+            //UserCreate();
+            //CustomerCreate();
 
+        }
 
+        private static void CustomerCreate()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+
+            var customer = new Customer()
+            {
+                UserId = 1,
+                CompanyName = "Kocaeli Uni"
+            };
+
+            customerManager.Add(customer);
+        }
+
+        private static void UserCreate()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            var user = new User()
+            {
+                FirstName = "gorgen",
+                LastName = "Yilmaz",
+                Email = "myemail@hotmail.com",
+                Password = "password123"
+            };
+            Console.WriteLine(userManager.Add(user));
         }
 
         private static void ColorCRUDTest()
         {
-            ColorManager colorManager = new ColorManager(new EntityColorDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
             Color colorAddandDelete = new Color() {ColorName="EklenenRenk" };
 
             Console.WriteLine("Eklemeden once \n");
@@ -47,7 +75,7 @@ namespace UIConsole
 
         private static void CarCRUDTest()
         {
-            CarManager carManager = new CarManager(new EntityCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
             Car carAddandDelete = new Car();
 
             carAddandDelete.Description = "it will be added and deleted";
@@ -73,7 +101,7 @@ namespace UIConsole
 
         private static void BrandCRUDTest()
         {
-            BrandManager brandManager = new BrandManager(new EntityBrandDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
             Brand brandAddandDelete = new Brand();
 
             brandAddandDelete.BrandName = "Hyundai";
@@ -97,7 +125,7 @@ namespace UIConsole
 
         private static void CarDetailsTest()
         {
-            CarManager carManager = new CarManager(new EntityCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
             var result = carManager.GetCarDetails();
 
             foreach (var car in result.Data)
@@ -108,7 +136,7 @@ namespace UIConsole
 
         private static void CarTest()
         {
-            CarManager carManager = new CarManager(new EntityCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
             var result = carManager.GetAll();
 
             foreach (var car in result.Data)
@@ -118,7 +146,7 @@ namespace UIConsole
         }
         private static void BrandTest()
         {
-            BrandManager brandManager = new BrandManager(new EntityBrandDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
             var result = brandManager.GetAll();
 
             foreach (var brand in result.Data)
@@ -129,12 +157,13 @@ namespace UIConsole
 
         private static void ColorTest() 
         {
-            ColorManager colorManager = new ColorManager(new EntityColorDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
             var result = colorManager.GetAll();
             foreach (var color in result.Data)
             {
                 Console.WriteLine(color.ColorName);
             }
         }
+       
     }
 }
