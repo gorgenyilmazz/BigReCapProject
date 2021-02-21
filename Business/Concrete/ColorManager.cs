@@ -19,31 +19,31 @@ namespace Business.Concrete
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
-            return new SuccessResult(true, Messages.EntityAdded);
+            return new SuccessResult(Messages.EntityAdded);
            
         }
 
         public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
-            return new SuccessResult(true, Messages.EntityDeleted);
+            return new SuccessResult( Messages.EntityDeleted);
         }
 
         public IDataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), true, Messages.EntitiesListed);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.EntitiesListed);
 
         }
 
-        public IDataResult<List<Color>> GetColorsByColordId(int id)
+        public IDataResult<List<Color>> GetColorsByColorId(int id)
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorId == id), true, Messages.EntitiesListed);
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(c => c.ColorId == id), Messages.EntitiesListed);
         }
 
         public IResult Update(Color color)
         {
             _colorDal.Update(color);
-            return new SuccessResult(true, Messages.EntityUpdated);
+            return new SuccessResult(Messages.EntityUpdated);
         }
     }
 }

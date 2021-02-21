@@ -19,29 +19,29 @@ namespace Business.Concrete
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
-            return new SuccessResult(true, Messages.EntityAdded);        
+            return new SuccessResult(Messages.EntityAdded);        
         }
 
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
-            return new SuccessResult(true, Messages.EntityDeleted);
+            return new SuccessResult(Messages.EntityDeleted);
         }
 
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), true, Messages.EntitiesListed);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.EntitiesListed);
         }
 
         public IDataResult<List<Brand>> GetBrandsByBranddId(int id)
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == id), true, Messages.EntitiesListed);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == id),Messages.EntitiesListed);
         }
 
         public IResult Update(Brand brand)
         {
             _brandDal.Update(brand);
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == brand.BrandId), true, Messages.EntityUpdated);
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(b => b.BrandId == brand.BrandId),Messages.EntityUpdated);
             
         }
     }

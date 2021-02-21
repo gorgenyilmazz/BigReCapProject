@@ -19,31 +19,31 @@ namespace Business.Concrete
         public IResult Add(User user)
         {
             _userDal.Add(user);
-            return new SuccessResult(true, Messages.EntityAdded);
+            return new SuccessResult(Messages.EntityAdded);
 
         }
 
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
-            return new SuccessResult(true, Messages.EntityDeleted);
+            return new SuccessResult(Messages.EntityDeleted);
         }
 
         public IDataResult<List<User>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(), true, Messages.EntitiesListed);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(),Messages.EntitiesListed);
 
         }
 
         public IDataResult<List<User>> GetUserById(int id)
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(u => u.Id == id), true, Messages.EntitiesListed);
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(u => u.Id == id), Messages.EntitiesListed);
         }
 
         public IResult Update(User user)
         {
             _userDal.Update(user);
-            return new SuccessResult(true, Messages.EntityUpdated);
+            return new SuccessResult(Messages.EntityUpdated);
         }
     }
 }

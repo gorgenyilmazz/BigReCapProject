@@ -22,25 +22,25 @@ namespace Business.Concrete
 
             foreach (var r in rentals)
             {
-                if (r.ReturnDate == null || r.RentDate > r.ReturnDate)
-                    return new ErrorResult(false, "Araba bosta degildir.");
+                if (r.ReturnDate == null || rental.RentDate < r.ReturnDate || rental.RentDate == r.RentDate)
+                    return new ErrorResult( "Araba bosta degildir.");
             }
             
      
             _rentalDal.Add(rental);
-            return new SuccessResult(true, Messages.EntityAdded);
+            return new SuccessResult(Messages.EntityAdded);
 
         }
 
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
-            return new SuccessResult(true, Messages.EntityDeleted);
+            return new SuccessResult(Messages.EntityDeleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), true, Messages.EntitiesListed);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.EntitiesListed);
 
         }
 
@@ -53,7 +53,7 @@ namespace Business.Concrete
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
-            return new SuccessResult(true, Messages.EntityUpdated);
+            return new SuccessResult(Messages.EntityUpdated);
         }
     }
 }

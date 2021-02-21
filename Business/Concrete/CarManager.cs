@@ -23,48 +23,48 @@ namespace Business.Concrete
             if (car.Description.Length >= 2 && car.DailyPrice > 0)
             {
                 _cars.Add(car);
-                return new SuccessResult(true, Messages.EntityAdded);
+                return new SuccessResult(Messages.EntityAdded);
             }
             else
-                return new ErrorResult(false, "Arabanin ismi minimum 2 karakter ve gunluk fiyati 0 dan buyuk olmalidir.");
+                return new ErrorResult("Arabanin ismi minimum 2 karakter ve gunluk fiyati 0 dan buyuk olmalidir.");
 
                
         }
 
         public IDataResult<List<Car>> GetAll()
         {
-            return new SuccessDataResult<List<Car>>(_cars.GetAll(), true);
+            return new SuccessDataResult<List<Car>>(_cars.GetAll());
         }
 
         public IDataResult<List<Car>> GetCarsByBranddId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_cars.GetAll(c => c.BrandId == id), true);
+            return new SuccessDataResult<List<Car>>(_cars.GetAll(c => c.BrandId == id));
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_cars.GetAll(c => c.ColorId == id), true);
+            return new SuccessDataResult<List<Car>>(_cars.GetAll(c => c.ColorId == id));
         }
         public IDataResult<List<CarDetailsDto>> GetCarDetails()
         {
-            return new SuccessDataResult<List<CarDetailsDto>>(_cars.GetCarDetails(), true);
+            return new SuccessDataResult<List<CarDetailsDto>>(_cars.GetCarDetails());
         }
 
         public IResult Update(Car car)
         {
             _cars.Update(car);
-            return new SuccessResult(true, Messages.EntityUpdated);
+            return new SuccessResult(Messages.EntityUpdated);
         }
 
         public IResult Delete(Car car)
         {
             _cars.Delete(car);
-            return new SuccessResult(true, Messages.EntityDeleted);
+            return new SuccessResult(Messages.EntityDeleted);
         }
 
         public IDataResult<List<Car>> GetById(int id)
         {
-            return new SuccessDataResult<List<Car>>(_cars.GetAll(c=>c.Id == id), true);
+            return new SuccessDataResult<List<Car>>(_cars.GetAll(c=>c.Id == id));
         }
     }
 }
